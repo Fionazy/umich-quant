@@ -46,5 +46,27 @@ int main(int argc, const char * argv[]) {
     const MarketScenario scenario(market, 2016, 9, 30);
     std::cout << portfolio.value(scenario) << std::endl;
     std::cout << portfolio.value(scenario,simulation1) << std::endl;
-    return 0;
-}
+    
+    //calculate 95% CI VaR of the portfolio
+    /*int sims=10000;
+    std::vector<double> profit=portfolio.profits(scenario,numberHistoricalReturns,sims);
+    std::sort (profit.begin(),profit.end());
+    double confidence=0.95;
+    size_t varIndex =round((1-confidence)*profit.size());
+    std::cout << -profit[varIndex] << std::endl;*/
+    
+    int sims=10000;
+    std::vector<double> profit=portfolio.profits(scenario,numberHistoricalReturns,sims);
+    std::cout << portfolio.VaR(profit,0.95) << std::endl;
+    std::cout << portfolio.VaR(profit,0.99) << std::endl;
+    std::cout << portfolio.es(profit,0.99) << std::endl;
+    
+    
+    
+    //class portfolioSimResults{
+    /*
+    private:
+    const double portfolioProfit;
+    const vector<double> portfolio positionProfit;
+     }
+*/
